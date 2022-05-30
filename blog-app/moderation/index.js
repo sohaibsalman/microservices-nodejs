@@ -10,7 +10,7 @@ const handleEvent = async (type, data) => {
             ? 'rejected'
             : 'approved';
 
-        await axios.post('http://localhost:4005/events', {
+        await axios.post('http://event-bus-srv:4005/events', {
             type: 'CommentModerated',
             data: {
                 id: data.id,
@@ -35,7 +35,7 @@ app.listen(4003, async () => {
 
     // Fetch all events occured during the downtime of this service
     try {
-        const res = await axios.get('http://localhost:4005/events');
+        const res = await axios.get('http://event-bus-srv:4005/events');
 
         for (let event of res.data) {
             console.log('Processing event:', event.type);
