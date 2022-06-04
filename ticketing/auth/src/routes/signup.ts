@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
-import { DatabaseConnectionError } from '../errors/database-connection-error';
+import { User } from '../models/user';
 import { RequestValidationError } from '../errors/request-validation-error';
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage('Password length must be atleast 4'),
   ],
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     // Check for validation errors
     const errors = validationResult(req);
 
@@ -24,11 +24,17 @@ router.post(
     }
 
     const { email, password }: { email: string; password: string } = req.body;
-    console.log('Creating user...');
 
-    throw new DatabaseConnectionError();
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.log('Email alraedy in use');
+      return res.send({});
+    }
 
-    res.send({});
+    const user = User.build({ email, password });
+    await user.save();
+
+    res.send({ user });
   }
 );
 
