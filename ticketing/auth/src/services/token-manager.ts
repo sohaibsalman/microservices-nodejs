@@ -15,4 +15,8 @@ export class TokenManager {
 
     return userJwt;
   }
+
+  static verifyJwtToken(token: string) {
+    return jwt.verify(token, process.env.JWT_KEY!);
+  }
 }
