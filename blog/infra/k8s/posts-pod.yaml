@@ -1,9 +1,0 @@
-# Example file to create a Pod, we should not create pod directly -- instead use deployments
-apiVersion: v1
-kind: Pod
-metadata:
-  name: posts
-spec:
-  containers:
-    - name: posts
-      image: s0haibsalman/posts:0.0.1

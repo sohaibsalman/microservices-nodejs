@@ -8,6 +8,11 @@
 - Deployment --> Manages the pods -- Monitors a set of pods, making sure they are running and restarts them if they crash
 - Services --> Used for networking between Pods -- Provides an easy to remember URL to access a running container
 
+#### Kubernetes Services Type
+- ClusterIP Service --> Used for communication between pods
+- NodePort Service --> Used to expose the pod to outside world (Only use in dev environment)
+- LoadBalancer Service --> Used to expose the pod to outside world (can use for prod environment)
+
 #### Common Kubernetes Commands
 
 Pod Related Commands
